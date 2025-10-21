@@ -4,3 +4,8 @@ update.mjs
 db/
 db.mjs
 /test3.mjs
+node_modules/
+npm-debug.log
+yarn-error.log
+.env
+.DS_Store

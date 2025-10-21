@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPT Prompts & Jailbreaks Browser</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>GPT Prompts & Jailbreaks</h1>
+            <p class="subtitle">Browse thousands of ChatGPT prompts and jailbreaks</p>
+        </header>
+
+        <nav class="categories">
+            <button class="category-btn active" data-category="prompts">All Prompts</button>
+            <button class="category-btn" data-category="Programming">Programming</button>
+            <button class="category-btn" data-category="Marketing">Marketing</button>
+            <button class="category-btn" data-category="Academic">Academic</button>
+            <button class="category-btn" data-category="Job-Hunting">Job Hunting</button>
+            <button class="category-btn" data-category="Game">Game</button>
+            <button class="category-btn" data-category="Creative">Creative</button>
+            <button class="category-btn" data-category="Prompt-Engineering">Prompt Engineering</button>
+            <button class="category-btn" data-category="Business">Business</button>
+            <button class="category-btn" data-category="Productivity-&-life-style">Productivity</button>
+            <button class="category-btn" data-category="Jailbreaks">Jailbreaks</button>
+        </nav>
+
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search prompts...">
+        </div>
+
+        <div id="content">
+            <div id="promptsList" class="prompts-grid"></div>
+            <div id="promptDetail" class="prompt-detail hidden"></div>
+            <div id="categoryDetail" class="category-detail hidden"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

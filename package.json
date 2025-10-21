@@ -15,7 +15,9 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "dompurify": "^3.3.0",
     "express": "^4.21.2",
+    "jsdom": "^27.0.1",
     "marked": "^11.2.0"
   }
 }

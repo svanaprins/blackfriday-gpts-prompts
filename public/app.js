@@ -21,15 +21,22 @@ function renderPrompts() {
     }
     
     promptsList.innerHTML = currentPrompts.map(prompt => `
-        <div class="prompt-card" onclick="loadPrompt('${prompt.id}')">
+        <div class="prompt-card" data-prompt-id="${escapeHtml(prompt.id)}">
             <h3>${escapeHtml(prompt.name)}</h3>
         </div>
     `).join('');
+    
+    document.querySelectorAll('.prompt-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const promptId = card.getAttribute('data-prompt-id');
+            loadPrompt(promptId);
+        });
+    });
 }
 
 async function loadPrompt(id) {
     try {
-        const response = await fetch(`/api/prompt/${id}`);
+        const response = await fetch(`/api/prompt/${encodeURIComponent(id)}`);
         const data = await response.json();
         
         document.getElementById('promptsList').classList.add('hidden');
@@ -38,9 +45,11 @@ async function loadPrompt(id) {
         const detailDiv = document.getElementById('promptDetail');
         detailDiv.classList.remove('hidden');
         detailDiv.innerHTML = `
-            <button class="back-btn" onclick="showPromptsList()">← Back to Prompts</button>
+            <button class="back-btn" id="backToPrompts">← Back to Prompts</button>
             <div class="prompt-content">${data.content}</div>
         `;
+        
+        document.getElementById('backToPrompts').addEventListener('click', showPromptsList);
         
         window.scrollTo(0, 0);
     } catch (error) {
@@ -50,7 +59,7 @@ async function loadPrompt(id) {
 
 async function loadCategory(category) {
     try {
-        const response = await fetch(`/api/category/${category}`);
+        const response = await fetch(`/api/category/${encodeURIComponent(category)}`);
         const data = await response.json();
         
         document.getElementById('promptsList').classList.add('hidden');
@@ -59,9 +68,11 @@ async function loadCategory(category) {
         const detailDiv = document.getElementById('categoryDetail');
         detailDiv.classList.remove('hidden');
         detailDiv.innerHTML = `
-            <button class="back-btn" onclick="showPromptsList()">← Back to Categories</button>
+            <button class="back-btn" id="backToCategories">← Back to Categories</button>
             <div class="category-content">${data.content}</div>
         `;
+        
+        document.getElementById('backToCategories').addEventListener('click', showPromptsList);
         
         window.scrollTo(0, 0);
     } catch (error) {

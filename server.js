@@ -2,6 +2,11 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const { marked } = require('marked');
+const createDOMPurify = require('dompurify');
+const { JSDOM } = require('jsdom');
+
+const window = new JSDOM('').window;
+const DOMPurify = createDOMPurify(window);
 
 const app = express();
 const PORT = 5000;
@@ -55,7 +60,9 @@ app.get('/api/category/:name', (req, res) => {
   const categoryFile = path.join(__dirname, `${req.params.name}.md`);
   if (fs.existsSync(categoryFile)) {
     const content = fs.readFileSync(categoryFile, 'utf-8');
-    res.json({ content: marked(content) });
+    const html = marked(content);
+    const sanitized = DOMPurify.sanitize(html);
+    res.json({ content: sanitized });
   } else {
     res.status(404).json({ error: 'Category not found' });
   }
@@ -77,7 +84,9 @@ app.get('/api/prompt/:id', (req, res) => {
   const promptFile = path.join(__dirname, 'gpts', `${req.params.id}.md`);
   if (fs.existsSync(promptFile)) {
     const content = fs.readFileSync(promptFile, 'utf-8');
-    res.json({ content: marked(content) });
+    const html = marked(content);
+    const sanitized = DOMPurify.sanitize(html);
+    res.json({ content: sanitized });
   } else {
     res.status(404).json({ error: 'Prompt not found' });
   }
